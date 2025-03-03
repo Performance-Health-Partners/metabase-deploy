@@ -91,4 +91,15 @@ if [ "$JAVA_TIMEZONE"]; then
     JAVA_OPTS+=" -Duser.timezone=$JAVA_TIMEZONE"
 fi
 
+# Set the Metabase logging level to debug if the LOG_LEVEL_DEBUG variable is present.
+# The log level is set by specifying a custom log4j configuration file
+# (see https://www.metabase.com/docs/latest/configuring-metabase/log-configuration).
+#
+# Our custom file is created on Heroku by our Metabase buildpack
+# (see https://github.com/Performance-Health-Partners/metabase-buildpack).
+if [ "$LOG_LEVEL_DEBUG" ]; then
+  echo "Setting Metabase logging level to DEBUG"
+  JAVA_OPTS+=" -Dlog4j.configurationFile=file:/bin/debug-log4j2.xml"
+fi
+
 exec java $JAVA_OPTS -jar ./target/uberjar/metabase.jar
