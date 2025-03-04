@@ -99,7 +99,7 @@ fi
 # (see https://github.com/Performance-Health-Partners/metabase-buildpack).
 if [ "$LOG_LEVEL_DEBUG" ]; then
   echo "Setting Metabase logging level to DEBUG"
-  JAVA_OPTS+=" -Dlog4j.configurationFile=file:/bin/debug-log4j2.xml"
+  JAVA_OPTS+=" -Dlog4j.configurationFile=file:./bin/debug-log4j2.xml"
 fi
 
 exec java $JAVA_OPTS -jar ./target/uberjar/metabase.jar
